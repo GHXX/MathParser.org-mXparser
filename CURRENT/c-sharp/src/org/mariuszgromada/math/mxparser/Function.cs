@@ -56,6 +56,8 @@
 using org.mariuszgromada.math.mxparser.parsertokens;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace org.mariuszgromada.math.mxparser {
 	/**
@@ -524,8 +526,15 @@ namespace org.mariuszgromada.math.mxparser {
 		 *
 		 * @return     Function value as double.
 		 */
-		public double calculate() {
-			if (functionBodyType == BODY_RUNTIME)
+		public double calculate(int timeoutinmilliseconds = 0) {
+            if (timeoutinmilliseconds == 0) {
+                Task.Factory.StartNew(() => Thread.Sleep(timeoutinmilliseconds))
+                .ContinueWith((t) =>
+                {
+                    return double.NaN;
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+            if (functionBodyType == BODY_RUNTIME)
 				return functionExpression.calculate();
 			else
 				if (isVariadic == false)
@@ -548,8 +557,18 @@ namespace org.mariuszgromada.math.mxparser {
 		 *
 		 * @return     function value as double.
 		 */
-		public double calculate(params double[] parameters) {
-			if (parameters.Length > 0) {
+		public double calculate(int timeoutinmilliseconds = 0, params double[] parameters) {
+
+            if (timeoutinmilliseconds == 0)
+            {
+                Task.Factory.StartNew(() => Thread.Sleep(timeoutinmilliseconds))
+                .ContinueWith((t) =>
+                {
+                    return double.NaN;
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+
+            if (parameters.Length > 0) {
 				functionExpression.UDFVariadicParamsAtRunTime = new List<Double>();
 				foreach (double x in parameters)
 					functionExpression.UDFVariadicParamsAtRunTime.Add(x);
@@ -582,8 +601,18 @@ namespace org.mariuszgromada.math.mxparser {
 		 *
 		 * @return     function value as double
 		 */
-		public double calculate(params Argument[] arguments) {
-			double[] parameters;
+		public double calculate(int timeoutinmilliseconds = 0, params Argument[] arguments) {
+
+            if (timeoutinmilliseconds == 0)
+            {
+                Task.Factory.StartNew(() => Thread.Sleep(timeoutinmilliseconds))
+                .ContinueWith((t) =>
+                {
+                    return double.NaN;
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+
+            double[] parameters;
 			if (arguments.Length > 0) {
 				functionExpression.UDFVariadicParamsAtRunTime = new List<Double>();
 				parameters = new double[arguments.Length];

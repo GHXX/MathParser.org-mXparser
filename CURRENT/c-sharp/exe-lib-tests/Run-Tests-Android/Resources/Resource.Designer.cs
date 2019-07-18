@@ -26,8 +26,6 @@ namespace Run_Tests_Android
 		
 		public static void UpdateIdValues()
 		{
-			global::mxparser.Resource.String.ApplicationName = global::Run_Tests_Android.Resource.String.ApplicationName;
-			global::mxparser.Resource.String.Hello = global::Run_Tests_Android.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

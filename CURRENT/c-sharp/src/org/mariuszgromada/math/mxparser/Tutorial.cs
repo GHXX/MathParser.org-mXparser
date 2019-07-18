@@ -202,9 +202,9 @@ namespace org.mariuszgromada.math.mxparser
 		 *
 		 */
 		Expression e16 = new Expression("sum(i,1,10,i)");
-		mXparser.consolePrintln(e16.getExpressionString() + " = " + e16.calculate());
+		mXparser.consolePrintln(e16.getExpressionString() + " = " + e16.calculate(444));
 		Expression e17 = new Expression("sum(i,1,10,i,0.5)");
-		mXparser.consolePrintln(e17.getExpressionString() + " = " + e17.calculate());
+		mXparser.consolePrintln(e17.getExpressionString() + " = " + e17.calculate(444));
 		/*
 		 * Product operator SIGMA
 		 * prod(index, from, to, expr)
@@ -212,9 +212,9 @@ namespace org.mariuszgromada.math.mxparser
 		 */
 		/* factorial */
 		Expression e18 = new Expression("prod(i,1,5,i)");
-		mXparser.consolePrintln(e18.getExpressionString() + " = " + e18.calculate());
+		mXparser.consolePrintln(e18.getExpressionString() + " = " + e18.calculate(444));
 		Expression e19 = new Expression("prod(i,1,5,i,0.5)");
-		mXparser.consolePrintln(e19.getExpressionString() + " = " + e19.calculate());
+		mXparser.consolePrintln(e19.getExpressionString() + " = " + e19.calculate(444));
 		/* Approximation sin(x) by Taylor series
 		 * ! - factorial
 		 */

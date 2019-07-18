@@ -62,6 +62,8 @@ using System.Collections.Generic;
 using org.mariuszgromada.math.mxparser;
 using org.mariuszgromada.math.mxparser.mathcollection;
 using org.mariuszgromada.math.mxparser.parsertokens;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace org.mariuszgromada.math.mxparser {
 	/**
@@ -5184,8 +5186,14 @@ namespace org.mariuszgromada.math.mxparser {
 		 * @return     The expression value if syntax was ok,
 		 *             otherwise returns Double.NaN.
 		 */
-		public double calculate() {
-			computingTime = 0;
+		public double calculate(int timeoutinmilliseconds = 90000) {
+            Task.Factory.StartNew(() => Thread.Sleep(timeoutinmilliseconds))
+            .ContinueWith((t) =>
+            {
+                return double.NaN;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+
+            computingTime = 0;
 			long startTime = mXparser.currentTimeMillis();
 			if (verboseMode == true) {
 				printSystemInfo("\n", NO_EXP_STR);

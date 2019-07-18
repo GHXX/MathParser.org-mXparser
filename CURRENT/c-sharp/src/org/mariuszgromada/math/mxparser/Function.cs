@@ -526,14 +526,8 @@ namespace org.mariuszgromada.math.mxparser {
 		 *
 		 * @return     Function value as double.
 		 */
-		public double calculate(int timeoutinmilliseconds = 0) {
-            if (timeoutinmilliseconds == 0) {
-                Task.Factory.StartNew(() => Thread.Sleep(timeoutinmilliseconds))
-                .ContinueWith((t) =>
-                {
-                    return double.NaN;
-                }, TaskScheduler.FromCurrentSynchronizationContext());
-            }
+		public double calculate() {
+
             if (functionBodyType == BODY_RUNTIME)
 				return functionExpression.calculate();
 			else
@@ -557,16 +551,8 @@ namespace org.mariuszgromada.math.mxparser {
 		 *
 		 * @return     function value as double.
 		 */
-		public double calculate(int timeoutinmilliseconds = 0, params double[] parameters) {
+		public double calculate(params double[] parameters) {
 
-            if (timeoutinmilliseconds == 0)
-            {
-                Task.Factory.StartNew(() => Thread.Sleep(timeoutinmilliseconds))
-                .ContinueWith((t) =>
-                {
-                    return double.NaN;
-                }, TaskScheduler.FromCurrentSynchronizationContext());
-            }
 
             if (parameters.Length > 0) {
 				functionExpression.UDFVariadicParamsAtRunTime = new List<Double>();
@@ -601,16 +587,8 @@ namespace org.mariuszgromada.math.mxparser {
 		 *
 		 * @return     function value as double
 		 */
-		public double calculate(int timeoutinmilliseconds = 0, params Argument[] arguments) {
+		public double calculate(params Argument[] arguments) {
 
-            if (timeoutinmilliseconds == 0)
-            {
-                Task.Factory.StartNew(() => Thread.Sleep(timeoutinmilliseconds))
-                .ContinueWith((t) =>
-                {
-                    return double.NaN;
-                }, TaskScheduler.FromCurrentSynchronizationContext());
-            }
 
             double[] parameters;
 			if (arguments.Length > 0) {
